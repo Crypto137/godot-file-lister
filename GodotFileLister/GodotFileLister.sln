@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GodotFileLister", "GodotFileLister.csproj", "{7B496D2C-3FBF-43D6-B555-EB1296FFDE38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B496D2C-3FBF-43D6-B555-EB1296FFDE38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B496D2C-3FBF-43D6-B555-EB1296FFDE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B496D2C-3FBF-43D6-B555-EB1296FFDE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B496D2C-3FBF-43D6-B555-EB1296FFDE38}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93D18556-6B55-4ED0-B1D5-31A14AAD4D18}
+	EndGlobalSection
+EndGlobal
