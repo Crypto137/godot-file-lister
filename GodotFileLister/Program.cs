@@ -10,23 +10,52 @@ namespace GodotFileLister
 {
     class Program
     {
+        const string outputPrefix = "res://";
+
         static void Main(string[] args)
         {
             if (args.Length > 0)
             {
                 // Get arguments
                 string projectDirectory = args[0];
-                string presetFile = (args.Length > 1) ? args[1] : "presets.txt";
+                string presetFile = (args.Length > 1) ? args[1] : "presets.txt";    // Default to presets.txt if no preset file is specified
 
+                // Get base directory
                 string baseDirectory = AppContext.BaseDirectory;
 
+                // Load directory preset list
                 List<DirectoryPreset> presetList = LoadDirectoryPresetList($"{baseDirectory}\\{presetFile}");
 
-                Console.WriteLine($"{projectDirectory}   {presetFile}");
-
+                // Prepare an output directory if there isn't one
                 if (Directory.Exists($"{baseDirectory}\\Output") == false)
                 {
                     Directory.CreateDirectory($"{baseDirectory}\\Output");
+                }
+
+                // Parse each directory according to the preset list
+                foreach (DirectoryPreset preset in presetList)
+                {
+                    // Get all files from the directory specified by the preset
+                    string[] files = Directory.GetFiles($"{projectDirectory}\\{preset.Path}", preset.Extension);
+
+                    // Process raw file paths
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        files[i] = files[i].Remove(0, projectDirectory.Length + 1);     // Add 1 to also remove a slash at the beginning of the path
+                        files[i] = files[i].Replace('\\', '/');                         // Replace all slashes
+                        files[i] = $"{outputPrefix}{files[i]}";                         // Add prefix for Godot resource paths
+                    }
+
+                    // Write file list
+                    using (StreamWriter writer = new StreamWriter($"{baseDirectory}\\Output\\{preset.OutputFileName}", false))
+                    {
+                        foreach (string file in files)
+                        {
+                            writer.WriteLine(file);
+                        }
+                    }
+
+                    Console.WriteLine($"Parsed {preset.Path} to {preset.OutputFileName}");
                 }
             }
             else
