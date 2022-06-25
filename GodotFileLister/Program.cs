@@ -12,16 +12,31 @@ namespace GodotFileLister
     {
         static void Main(string[] args)
         {
-            string projectDirectory = "";
-            string presetFile = "presets.txt";
-
-            List<DirectoryPreset> presetList = LoadDirectoryPresetList($"{AppContext.BaseDirectory}\\{presetFile}");
-
-            foreach (DirectoryPreset preset in presetList)
+            if (args.Length > 0)
             {
-                Console.WriteLine($"{preset.Path}   {preset.Extension}  {preset.OutputFileName}");
+                // Get arguments
+                string projectDirectory = args[0];
+                string presetFile = (args.Length > 1) ? args[1] : "presets.txt";
+
+                string baseDirectory = AppContext.BaseDirectory;
+
+                List<DirectoryPreset> presetList = LoadDirectoryPresetList($"{baseDirectory}\\{presetFile}");
+
+                Console.WriteLine($"{projectDirectory}   {presetFile}");
+
+                if (Directory.Exists($"{baseDirectory}\\Output") == false)
+                {
+                    Directory.CreateDirectory($"{baseDirectory}\\Output");
+                }
+            }
+            else
+            {
+                // Show usage hint if no arguments are provided
+                Console.WriteLine("Usage: GodotFileLister.exe ProjectDirectory [PresetFile]");
             }
 
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
         }
 
         static List<DirectoryPreset> LoadDirectoryPresetList(string presetFilePath)
